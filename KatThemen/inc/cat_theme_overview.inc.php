@@ -6,6 +6,9 @@ if(isset($_POST['new_theme']) && $_POST['new_theme'] != ''){
                 firmthemen
             SET
                 name = "' . $_POST['new_theme'] .'",
+                info = "' . $_POST['new_theme_info'] .'",
+                ack = 0,
+                is_tabu = 0,
                 type = 0';
 
     $result = $db->rawQuery($sql, Array(10));
@@ -23,7 +26,19 @@ if(isset($_GET['vote']) && $_GET['vote'] == 'true'){
     $sql = 'INSERT INTO 
                 firmthemen_votes
             SET
-                cat_id_firmthema = ' . MyCrypt::decrypt($_GET['id']);
+                cat_id_firmthema = ' . MyCrypt::decrypt($_GET['id']) . ',
+                no_vote = 0,
+                cat_id_user = 0';
+
+    $result = $db->rawQuery($sql, Array(10));
+}
+if(isset($_GET['novote']) && $_GET['novote'] == 'true'){
+    $sql = 'INSERT INTO 
+                firmthemen_votes
+            SET
+                cat_id_firmthema = ' . MyCrypt::decrypt($_GET['id']) . ',
+                no_vote = 1,
+                cat_id_user = 0';
 
     $result = $db->rawQuery($sql, Array(10));
 }

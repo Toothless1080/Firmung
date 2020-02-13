@@ -12,6 +12,7 @@ include 'inc/' . basename(__FILE__, '.php') . '.inc.php'; //.inc File Import
             <label>Kat Themen</label>
             <form method="post">
                 <input name="new_theme" type="text" placeholder="Neues Thema">
+                <input name="new_theme_info" type="text" placeholder="Beschreibung">
                 <button>+</button>
             </form>
         </div>
@@ -20,7 +21,8 @@ include 'inc/' . basename(__FILE__, '.php') . '.inc.php'; //.inc File Import
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
-                        <th>Name<i class="fas fa-trash-alt"></i></th>
+                        <th>Name</th>
+                        <th>Beschreibung</th>
                         <th>Stimmen</th>
                         <th width="10%">Aktion</th>
                     </tr>
@@ -30,11 +32,14 @@ include 'inc/' . basename(__FILE__, '.php') . '.inc.php'; //.inc File Import
                 <tr>
                     <td><?= $item['id']?></td>
                     <td><?= $item['name'] ?></td>
+                    <td><?= $item['info'] ?></td>
                     <td><?= $item['count'] ?></td>
                     <td><?= '<a href="cat_theme_overview.php?vote=true&id=' . MyCrypt::encrypt($item['id']) . '">
                                         <i class="fas fa-thumbs-up"></i></a>' ?>
                         <?= '<a href="cat_theme_overview.php?delete=true&id=' . MyCrypt::encrypt($item['id']) . '">
                                         <i class="fa fa-trash"></i></a>' ?>
+                        <?= '<a href="cat_theme_overview.php?novote=true&id=' . MyCrypt::encrypt($item['id']) . '">
+                                        <i style="color: red;" class="far fa-stop-circle"></i>' ?>
                     </td>
                 </tr>
             <? } ?>
