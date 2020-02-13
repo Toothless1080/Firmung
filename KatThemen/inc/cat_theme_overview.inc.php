@@ -51,12 +51,20 @@ $result = $db->rawQuery($sql, Array(10));
 $rows = array();
 foreach ($result as $row){
     $row['count'] = getVoteCountByKatid($row['id']);
+    $row['no_vote'] = getNoVote($row['id']);
     array_push($rows, $row);
 }
 
 function getVoteCountByKatid($kat_id){
     global $db;
     $sql = 'SELECT COUNT(id) as counti FROM firmthemen_votes WHERE cat_id_firmthema = ' . $kat_id;
+    $result = $db->ObjectBuilder()->rawQueryOne($sql, Array(10));
+    return $result->counti;
+}
+
+function getNoVote($kat_id){
+    global $db;
+    $sql = 'SELECT COUNT(id) as counti FROM firmthemen_votes WHERE no_vote = 1 AND cat_id_firmthema = ' . $kat_id;
     $result = $db->ObjectBuilder()->rawQueryOne($sql, Array(10));
     return $result->counti;
 }
